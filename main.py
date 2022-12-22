@@ -2,7 +2,6 @@
 import os
 import wave
 
-import numpy
 import numpy as np
 
 # Set the directory containing the wav files
@@ -34,22 +33,22 @@ for filename in os.listdir(directory):
         right_channel = wave_data[:, 1]
 
         if len(left_channel)%2 == 0:
-            left_zero_array = numpy.zeros((len(left_channel) / 2))
-            left_zero_array_one = numpy.full((len(left_channel) / 2), 1)
+            left_zero_array = np.zeros((len(left_channel) / 2))
+            left_zero_array_one = np.full((len(left_channel) / 2), 1)
         else:
-            left_zero_array = numpy.zeros(int(((len(left_channel) / 2)-0.5)))
-            left_zero_array_one = numpy.full(int(((len(left_channel) / 2)-0.5)), 1)
+            left_zero_array = np.zeros(int(((len(left_channel) / 2)-0.5)))
+            left_zero_array_one = np.full(int(((len(left_channel) / 2)-0.5)), 1)
         left_zero_array = np.array([left_zero_array_one, left_zero_array])
         left_zero_array = np.reshape(left_zero_array, len(left_zero_array[0])*2, order='F')
         if len(left_channel)%2 != 1:
             np.append(left_zero_array,1)
 
         if len(right_channel)%2 == 0:
-            right_zero_array = numpy.zeros((len(right_channel) / 2))
-            right_zero_array_one = numpy.full((len(right_channel) / 2), 1)
+            right_zero_array = np.zeros((len(right_channel) / 2))
+            right_zero_array_one = np.full((len(right_channel) / 2), 1)
         else:
-            right_zero_array = numpy.zeros(int(((len(right_channel) / 2)+0.5)))
-            right_zero_array_one = numpy.full(int(((len(right_channel) / 2)+0.5)), 1)
+            right_zero_array = np.zeros(int(((len(right_channel) / 2)+0.5)))
+            right_zero_array_one = np.full(int(((len(right_channel) / 2)+0.5)), 1)
         right_zero_array = np.array([right_zero_array_one, right_zero_array])
         right_zero_array = np.reshape(right_zero_array, len(right_zero_array[0])*2, order='F')
         if len(right_channel)%2 == 1: np.append(right_zero_array,1)
