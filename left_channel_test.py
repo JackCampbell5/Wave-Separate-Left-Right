@@ -9,7 +9,7 @@ import numpy
 import numpy as np
 
 # Set the directory containing the wav files
-directory = "C:\\Users\\jackp\\Documents\\Game Design\\SoundProject\\Audio\\Python Code\\TestFiles"
+directory = "C:\\Users\\Jack Campbell\\Documents\\Sound project Help Files\\Python Code"
 
 # Loop through all files in the directory
 for filename in os.listdir(directory):

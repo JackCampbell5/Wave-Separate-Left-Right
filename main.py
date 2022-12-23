@@ -1,11 +1,11 @@
 # Import the necessary modules
 import os
 import wave
-from array_to_txt import array_to_text
+from helper_methods import array_to_text
 import numpy as np
 
 # Set the directory containing the wav files
-directory = "C:\\Users\\jackp\\Documents\\Game Design\\SoundProject\\Audio\\Python Code\\TestFiles"
+directory = r"C:\Users\Jack Campbell\Documents\Sound project Help Files\Python Code\TestFiles"
 
 # Loop through all files in the directory
 for filename in os.listdir(directory):
@@ -31,7 +31,7 @@ for filename in os.listdir(directory):
         # Split the wave data into left and right channels
         left_channel = wave_data[:, 0]
         right_channel = wave_data[:, 1]
-        array_to_text(right_channel, directory)
+        array_to_text(right_channel, directory,"rightChannel",1000)
 
         if len(left_channel) % 2 == 0:
             left_zero_array = np.zeros((len(left_channel) / 2))
