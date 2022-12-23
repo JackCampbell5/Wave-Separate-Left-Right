@@ -2,19 +2,28 @@
 import os
 import wave
 from helper_methods import array_to_text
+from helper_methods import find_patterns
+from helper_methods import print_to_scrach
 import numpy as np
 
 # Set the directory containing the wav files
-directory = r"C:\Users\Jack Campbell\Documents\Sound project Help Files\Python Code\TestFiles"
+directory = r"C:\Users\Jack Campbell\Documents\Sound project Help Files\Python Code\TestFiles\More"
 
 # Loop through all files in the directory
 for filename in os.listdir(directory):
     # Check if the file is a wav file
-    print(filename)
     if filename.endswith(".wav"):
-        # Open the wav file
-        wave_file = wave.open(os.path.join(directory, filename), "r")
-        # print("The wave file is encoded incorrectly")
+
+        # Prints file name as record for what is used
+        print(filename)
+
+        # See if the wav file is encoded wrong and move on if it is
+        try:
+            # Open the wav file
+            wave_file = wave.open(os.path.join(directory, filename), "r")
+        except:
+            print("The wave file is encoded incorrectly")
+            break
 
         # Read the wav file properties
         num_channels = wave_file.getnchannels()
@@ -28,10 +37,19 @@ for filename in os.listdir(directory):
 
         # Reshape the wave data into an array with one column per channel
         wave_data = wave_data.reshape((num_frames, num_channels))
+
         # Split the wave data into left and right channels
         left_channel = wave_data[:, 0]
         right_channel = wave_data[:, 1]
-        array_to_text(right_channel, directory,"rightChannel",1000)
+        array_to_text(left_channel, directory, "leftChannel", 100)
+        array_to_text(right_channel, directory, "rightChannel")
+
+        print_to_scrach(directory, "Left Channel Length: " + str(len(left_channel)))
+        pattern_array = left_channel[:1000]
+        for a in range(1, int(len(pattern_array)/2)):
+            print_to_scrach(directory, "combo_number"+str(a), "scrach", True)
+            print_to_scrach(directory, "\n \n" + str(a) + ": " + str(find_patterns(pattern_array, a, directory)),
+                            "pattern_scrach_output_witha")
 
         if len(left_channel) % 2 == 0:
             left_zero_array = np.zeros((len(left_channel) / 2))

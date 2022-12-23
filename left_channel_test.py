@@ -4,8 +4,6 @@
 # Import the necessary modules
 import os
 import wave
-
-import numpy
 import numpy as np
 
 # Set the directory containing the wav files
