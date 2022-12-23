@@ -1,11 +1,11 @@
 # Import the necessary modules
 import os
 import wave
-
+from array_to_txt import array_to_text
 import numpy as np
 
 # Set the directory containing the wav files
-directory = "Your//Directory"
+directory = "C:\\Users\\jackp\\Documents\\Game Design\\SoundProject\\Audio\\Python Code\\TestFiles"
 
 # Loop through all files in the directory
 for filename in os.listdir(directory):
@@ -31,40 +31,38 @@ for filename in os.listdir(directory):
         # Split the wave data into left and right channels
         left_channel = wave_data[:, 0]
         right_channel = wave_data[:, 1]
+        array_to_text(right_channel, directory)
 
-        if len(left_channel)%2 == 0:
+        if len(left_channel) % 2 == 0:
             left_zero_array = np.zeros((len(left_channel) / 2))
             left_zero_array_one = np.full((len(left_channel) / 2), 1)
         else:
-            left_zero_array = np.zeros(int(((len(left_channel) / 2)-0.5)))
-            left_zero_array_one = np.full(int(((len(left_channel) / 2)-0.5)), 1)
+            left_zero_array = np.zeros(int(((len(left_channel) / 2) - 0.5)))
+            left_zero_array_one = np.full(int(((len(left_channel) / 2) - 0.5)), 1)
         left_zero_array = np.array([left_zero_array_one, left_zero_array])
-        left_zero_array = np.reshape(left_zero_array, len(left_zero_array[0])*2, order='F')
-        if len(left_channel)%2 != 1:
-            np.append(left_zero_array,1)
+        left_zero_array = np.reshape(left_zero_array, len(left_zero_array[0]) * 2, order='F')
+        if len(left_channel) % 2 == 1:
+            left_zero_array = np.append(left_zero_array, [1])
 
-        if len(right_channel)%2 == 0:
+        if len(right_channel) % 2 == 0:
             right_zero_array = np.zeros((len(right_channel) / 2))
             right_zero_array_one = np.full((len(right_channel) / 2), 1)
         else:
-            right_zero_array = np.zeros(int(((len(right_channel) / 2)+0.5)))
-            right_zero_array_one = np.full(int(((len(right_channel) / 2)+0.5)), 1)
+            right_zero_array = np.zeros(int(((len(right_channel) / 2) - 0.5)))
+            right_zero_array_one = np.full(int(((len(right_channel) / 2) - 0.5)), 1)
         right_zero_array = np.array([right_zero_array_one, right_zero_array])
-        right_zero_array = np.reshape(right_zero_array, len(right_zero_array[0])*2, order='F')
-        if len(right_channel)%2 == 1: np.append(right_zero_array,1)
+        right_zero_array = np.reshape(right_zero_array, len(right_zero_array[0]) * 2, order='F')
+        if len(right_channel) % 2 == 1:
+            right_zero_array = np.append(right_zero_array, [1])
 
         # Need to be created in a 2*2 formation3
-        print(len(left_channel))
-        print(len(left_zero_array))
         wave_data_left = np.array([left_channel, left_zero_array])
         wave_data_left = np.reshape(wave_data_left, len(wave_data) * 2, order='F')
         wave_data_left = np.reshape(wave_data_left, (len(wave_data), 2))
-        print(wave_data_left)
 
         wave_data_right = np.array([right_zero_array, right_channel])
         wave_data_right = np.reshape(wave_data_right, len(wave_data) * 2, order='F')
         wave_data_right = np.reshape(wave_data_right, (len(wave_data), 2))
-        print(wave_data_right)
 
         # # Make the paths for writing left and right
         # path_left = os.path.join(directory, "left_" + filename)

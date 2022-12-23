@@ -32,4 +32,5 @@
 + Make it put all the output files in a sub folder
 + Have it work
 + Make it not just crash when the wrong format wav is created
++ Add more comments
 + Make a method file that takes a normal directory and converts it correctly

@@ -38,11 +38,11 @@ for filename in os.listdir(directory):
         # Split the wave data into left and right channels
         left_channel = wave_data[:, 0]
         right_channel = wave_data[:, 1]
+        print(len(left_channel))
+        print(len(right_channel))
 
         wave_data_right = np.array([left_channel, right_channel])
-        print(len(wave_data_right[0]))
         wave_data_right = np.reshape(wave_data_right, len(wave_data)*2,order='F')
-        print(len(wave_data))
         wave_data_right = np.reshape(wave_data_right, (len(wave_data),2))
 
         # Make the paths for writing left and right
