@@ -4,8 +4,8 @@
 import os
 
 
-# This function takes the directory copied from file explorer and changes it into a directory the program can understand with excape charachers
-# Depricated
+# This function takes the directory copied from file explorer and changes it into a directory the program can understand with escape characters
+# Deprecated
 def directory_type(directory):
     a = 0
     while a < len(directory):
@@ -23,7 +23,7 @@ def array_to_text(array, directory, tag="", range_amount=100):
     if not (tag == ""):
         tag = "(" + tag + ")"
 
-    # If the range if over the length of the array set the range to arrray length
+    # If the range is over the length of the array set the range to array length
     if range_amount > len(array):
         range_amount = len(array)
 
@@ -79,7 +79,7 @@ def find_patterns(data, pattern_length):
     return patterns
 
 
-def print_to_scrach(directory, what, file_name="scrach", reset=False):
+def print_to_scratch(directory, what, file_name="scratch", reset=False):
     if reset:
         write_type = "w"
     else:
