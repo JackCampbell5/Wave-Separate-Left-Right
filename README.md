@@ -33,3 +33,4 @@
 + Have it work
 + Make it not just crash when the wrong format wav is created
 + Add more comments
++ Create separate repository to create distribution

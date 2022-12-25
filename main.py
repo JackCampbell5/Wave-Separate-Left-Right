@@ -9,10 +9,32 @@ import numpy as np
 # Set the directory containing the wav files
 directory = r"C:\Users\Jack Campbell\Documents\Sound project Help Files\Python Code\TestFiles\More"
 
+# Get the wave file that
+blank_file_name = "blank.wav"
+blank_file = wave.open(os.path.join(directory, blank_file_name), "r")
+
+# Read the wav file properties
+blank_num_channels = blank_file.getnchannels()
+blank_sample_width = blank_file.getsampwidth()
+blank_sample_rate = blank_file.getframerate()
+blank_num_frames = blank_file.getnframes()
+
+# Read the entire wave file into a numpy array
+blank_data = blank_file.readframes(blank_num_frames)
+blank_data = np.frombuffer(blank_data, dtype=np.int16)
+print(blank_file.getparams())
+
+# Reshape the wave data into an array with one column per channel
+blank_data = blank_data.reshape((blank_num_frames, blank_num_channels))
+
+# Split the wave data into left and right channels
+blank_left_channel = blank_data[:, 0]
+blank_right_channel = blank_data[:, 1]
+
 # Loop through all files in the directory
 for filename in os.listdir(directory):
     # Check if the file is a wav file
-    if filename.endswith(".wav"):
+    if filename.endswith(".wav") and not (filename == blank_file_name):
 
         # Prints file name as record for what is used
         print(filename)
@@ -41,67 +63,39 @@ for filename in os.listdir(directory):
         # Split the wave data into left and right channels
         left_channel = wave_data[:, 0]
         right_channel = wave_data[:, 1]
-        array_to_text(left_channel, directory, "leftChannel", 100)
-        array_to_text(right_channel, directory, "rightChannel")
 
-        print_to_scrach(directory, "Left Channel Length: " + str(len(left_channel)))
-        pattern_array = left_channel[:1000]
-        for a in range(1, int(len(pattern_array)/2)):
-            print_to_scrach(directory, "combo_number"+str(a), "scrach", True)
-            print_to_scrach(directory, "\n \n" + str(a) + ": " + str(find_patterns(pattern_array, a, directory)),
-                            "pattern_scrach_output_witha")
-
-        if len(left_channel) % 2 == 0:
-            left_zero_array = np.zeros((len(left_channel) / 2))
-            left_zero_array_one = np.full((len(left_channel) / 2), 1)
-        else:
-            left_zero_array = np.zeros(int(((len(left_channel) / 2) - 0.5)))
-            left_zero_array_one = np.full(int(((len(left_channel) / 2) - 0.5)), 1)
-        left_zero_array = np.array([left_zero_array_one, left_zero_array])
-        left_zero_array = np.reshape(left_zero_array, len(left_zero_array[0]) * 2, order='F')
-        if len(left_channel) % 2 == 1:
-            left_zero_array = np.append(left_zero_array, [1])
-
-        if len(right_channel) % 2 == 0:
-            right_zero_array = np.zeros((len(right_channel) / 2))
-            right_zero_array_one = np.full((len(right_channel) / 2), 1)
-        else:
-            right_zero_array = np.zeros(int(((len(right_channel) / 2) - 0.5)))
-            right_zero_array_one = np.full(int(((len(right_channel) / 2) - 0.5)), 1)
-        right_zero_array = np.array([right_zero_array_one, right_zero_array])
-        right_zero_array = np.reshape(right_zero_array, len(right_zero_array[0]) * 2, order='F')
-        if len(right_channel) % 2 == 1:
-            right_zero_array = np.append(right_zero_array, [1])
+        blank_left_channel_final = blank_left_channel[:len(right_channel)]
+        blank_right_channel_final = blank_left_channel[:len(left_channel)]
 
         # Need to be created in a 2*2 formation3
-        wave_data_left = np.array([left_channel, left_zero_array])
+        wave_data_left = np.array([left_channel, blank_right_channel_final])
         wave_data_left = np.reshape(wave_data_left, len(wave_data) * 2, order='F')
         wave_data_left = np.reshape(wave_data_left, (len(wave_data), 2))
 
-        wave_data_right = np.array([right_zero_array, right_channel])
+        wave_data_right = np.array([blank_left_channel_final, right_channel])
         wave_data_right = np.reshape(wave_data_right, len(wave_data) * 2, order='F')
         wave_data_right = np.reshape(wave_data_right, (len(wave_data), 2))
 
-        # # Make the paths for writing left and right
-        # path_left = os.path.join(directory, "left_" + filename)
-        # path_right = os.path.join(directory, "right_" + filename)
-        #
-        # # Create file for left
-        # outwav_left = wave.open(path_left, 'w')
-        # outwav_right = wave.open(path_right, 'w')
-        #
-        # # set Paramaters
-        # outwav_left.setparams(wave_file.getparams())
-        # outwav_right.setparams(wave_file.getparams())
-        #
-        # # Set stero vs mono
-        # outwav_left.setnchannels(2)
-        # outwav_right.setnchannels(2)
-        #
-        # # Writes the output file
-        # outwav_left.writeframes(wave_data_left.tobytes())
-        # outwav_right.writeframes(wave_data_right.tobytes())
-        #
-        # # We are done
-        # outwav_left.close()
-        # outwav_right.close()
+        # Make the paths for writing left and right
+        path_left = os.path.join(directory, "left_" + filename)
+        path_right = os.path.join(directory, "right_" + filename)
+
+        # Create file for left
+        outwav_left = wave.open(path_left, 'w')
+        outwav_right = wave.open(path_right, 'w')
+
+        # Set Parameters
+        outwav_left.setparams(wave_file.getparams())
+        outwav_right.setparams(wave_file.getparams())
+
+        # Set stereo vs mono
+        outwav_left.setnchannels(2)
+        outwav_right.setnchannels(2)
+
+        # Writes the output file
+        outwav_left.writeframes(wave_data_left.tobytes())
+        outwav_right.writeframes(wave_data_right.tobytes())
+
+        # We are done
+        outwav_left.close()
+        outwav_right.close()

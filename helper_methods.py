@@ -42,12 +42,25 @@ def array_to_text(array, directory, tag="", range_amount=100):
 
     # Change the current working directory to the "test_folder" directory
     os.chdir(path)
-    with open(f"{i}{tag}array.txt", "w") as f:
-        for i in range(range_amount):
-            f.write(str(array[i]) + "\n")
+    million = 5000000
+    a = 0
+    x = int(range_amount / million)
+    print(range_amount)
+    print(x)
+    x += 2
+    while a < x:
+        with open(f"{i}{tag}array.txt", "w") as f:
+            if(a+1)*million>range_amount:
+                range_end = range_amount
+            else:
+                range_end = (a+1)*million
+            for e in range(a * million, range_end):
+                f.write(str(array[e]) + ", ")
+            a += 1
+            i += 1
 
 
-def find_patterns(data, pattern_length, directory):
+def find_patterns(data, pattern_length):
     # Initialize a dictionary to store the patterns
     patterns = {}
 
@@ -63,12 +76,6 @@ def find_patterns(data, pattern_length, directory):
             # If it is not, add it to the dictionary with a count of 1
             patterns[pattern] = 1
 
-    # Return the dictionary of patterns
-    for a in patterns:
-        print_to_scrach(directory, str(a) + ": "+str(patterns[a]), "pattern_scrach_output")
-        if patterns[a]>300:
-            print_to_scrach(directory, str(a) + ": " + str(patterns[a]), "pattern_scrach_output_big")
-    print_to_scrach(directory,"\n \n","pattern_scrach_output")
     return patterns
 
 
