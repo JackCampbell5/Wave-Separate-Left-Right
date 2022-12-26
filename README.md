@@ -24,6 +24,7 @@
 1. Install dependency's
 2. Set the directory for it to search
 3. Put the Blank.wav file in the same directory
+   + Or create one with [Create Blank Wave File](https://github.com/JackCampbell5/Create_Blank_Wav_File "Create Blank Wave File")
 4. If name is not "Blank".wav then change it in line 13
 5. Confirm that the wave files in directory are encoded with np.int16
    + Otherwise, the code will not run for that file
