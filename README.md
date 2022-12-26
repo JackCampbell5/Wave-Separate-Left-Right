@@ -6,6 +6,7 @@
 + Meaning that when played in a stereo system for example headphones it will only play out of the left earphone
 + The second stereo track has a blank left channel and the right channel from the gorgon track
 + This is an additive process meaning it just creates files and does not remove the original file
++ It will put the files in a sub folder called output files to make searching easier
 
 ### What it does(Other files):
 
@@ -44,5 +45,4 @@
 + [Numpy documentation](https://numpy.org/doc/stable/index.html "NumPy documentation")
 
 ### Todo:
-+ Make it put all the output files in a sub folder
-+ Make except more specific 
++ None

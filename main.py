@@ -46,9 +46,9 @@ for filename in os.listdir(directory):
         try:
             # Open the wav file
             wave_file = wave.open(os.path.join(directory, filename), "r")
-        except:
+        except wave.Error:
             # The wave file is encoded incorrectly so break from loop
-            print("The wave file is encoded incorrectly")
+            print(fr"The wave file {filename} is encoded incorrectly")
             break
 
         # Read the wav file properties
@@ -90,9 +90,16 @@ for filename in os.listdir(directory):
         wave_data_left = np.reshape(wave_data_left, (len(wave_data), 2))
         wave_data_right = np.reshape(wave_data_right, (len(wave_data), 2))
 
+        # Create the "test_folder" directory in the custom location
+        output_directory = os.path.join(directory, "Output Files")
+
+        # Try to create the folder and if it exists ignore it
+        if not (os.path.isdir(output_directory)):
+            os.mkdir(output_directory)
+
         # Make the paths for writing left and right
-        path_left = os.path.join(directory, "left_" + filename)
-        path_right = os.path.join(directory, "right_" + filename)
+        path_left = os.path.join(output_directory, "left_" + filename)
+        path_right = os.path.join(output_directory, "right_" + filename)
 
         # Create file for left
         outwav_left = wave.open(path_left, 'w')

@@ -10,7 +10,7 @@ def directory_type(directory):
     a = 0
     while a < len(directory):
         if directory[a] == "\\":
-            directory = directory[:(a)] + "\\" + directory[a:]
+            directory = directory[:a] + "\\" + directory[a:]
             a += 2
         else:
             a += 1
