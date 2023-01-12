@@ -4,7 +4,7 @@ import wave
 import numpy as np
 
 
-def wave_seperate_method(input_directory, output_directory, blank_diretcory):
+def wave_seperate_method(input_directory, output_directory, blank_diretcory,new_directory):
     # START Getting blank data
 
     # Set the directory containing the wav files
@@ -90,7 +90,10 @@ def wave_seperate_method(input_directory, output_directory, blank_diretcory):
             wave_data_right = np.reshape(wave_data_right, (len(wave_data), 2))
 
             # Create the "test_folder" directory in the custom location
-            output_directory = output_directory
+            if new_directory:
+                output_directory = os.path.join(directory, "Output Files")
+            else:
+                output_directory = output_directory
 
             # Try to create the folder and if it exists ignore it
             if not (os.path.isdir(output_directory)):
@@ -119,3 +122,5 @@ def wave_seperate_method(input_directory, output_directory, blank_diretcory):
             # Close files
             outwav_left.close()
             outwav_right.close()
+
+    return True
