@@ -2,16 +2,17 @@
 import os
 import wave
 import numpy as np
+
+
+def wave_seperate_method(input_directory, output_directory, blank_diretcory):
     # START Getting blank data
 
     # Set the directory containing the wav files
-    directory = r"C:\Users\jackp\Documents\Game Design\SoundProject\Audio\Test files HH!"
-
-    # Get the file name of where the blank wav is stored
-    blank_file_name = "blank.wav"
+    directory = input_directory
 
     # Sets the directory for the blank file in the write configuration
-    blank_file = wave.open(os.path.join(directory, blank_file_name), "r")
+    blank_file_name = os.path.basename(blank_diretcory)
+    blank_file = wave.open(os.path.join(blank_diretcory), "r")
 
     # Read the blank  file properties
     blank_num_channels = blank_file.getnchannels()
@@ -32,12 +33,10 @@ import numpy as np
 
     # END Getting blank data
 
-
     # Loop through all files in the directory
     for filename in os.listdir(directory):
         # Check if the file is a wav file and not the blank file
         if filename.endswith(".wav") and not (filename == blank_file_name):
-
 
             # See if the wav file is encoded correctly and move on if it is not
             try:
@@ -91,7 +90,7 @@ import numpy as np
             wave_data_right = np.reshape(wave_data_right, (len(wave_data), 2))
 
             # Create the "test_folder" directory in the custom location
-            output_directory = os.path.join(directory, "Output Files")
+            output_directory = output_directory
 
             # Try to create the folder and if it exists ignore it
             if not (os.path.isdir(output_directory)):
