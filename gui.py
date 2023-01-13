@@ -38,6 +38,7 @@ def checkbox_output_fun(num, var):
             buttons[2]["state"] = "active"
     else:
         var = False
+        # TODO Add to re-enable button when it is disabled
     outputVar[num] = var
 
 

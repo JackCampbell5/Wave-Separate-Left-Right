@@ -45,4 +45,6 @@
 + [Numpy documentation](https://numpy.org/doc/stable/index.html "NumPy documentation")
 
 ### Todo:
-+ None
++ BuG Fixes
++ Add color?
++ Update Read me for GUI
