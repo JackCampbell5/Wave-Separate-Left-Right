@@ -1,5 +1,6 @@
 # Wave Separate Left Right
 
+Note: If you want a GUI for this program make sure to check out the GUI branch 
 ## What it does(Main.py):
 + This code is made to take a stereo wave file encoded with np.int16 type and create 2 stereo tracks from it.
 + The first stereo track has the left channel from the original track and a blank right chanel
