@@ -13,14 +13,14 @@
 #### GUI.py
 + Takes 1 file as the directory to search for correctly formatted WAV files
 + If the checkbox is not clicked you select a directory where you want the files to be output
-  + If the checkbox if clicked a sub directory will be made under your main directory called "Output Files" to hold the files
-+ Finaly select the blank file that is used for the other half 
+  + If the checkbox is clicked a sub directory will be made under your main directory called "Output Files" to hold the files
++ Finally select the blank file that is used for the other half 
 
-#### wave_seperate_method.py
+#### wave_separate_method.py
 + A version of the main.py file found in the main branch in method form taking parameters to run
 + input_directory - Where the original wave files are
 + output_directory - Where the files should be output - or null if new_directory is true
-+ blank_diretcory - the location for your blank.wav file
++ blank_directory - the location for your blank.wav file
 + new_directory - boolean for whether a new directory was needed 
 
 ## How to run:

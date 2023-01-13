@@ -4,15 +4,15 @@ import wave
 import numpy as np
 
 
-def wave_seperate_method(input_directory, output_directory, blank_diretcory,new_directory):
+def wave_separate_method(input_directory, output_directory, blank_directory, new_directory):
     # START Getting blank data
 
     # Set the directory containing the wav files
     directory = input_directory
 
     # Sets the directory for the blank file in the write configuration
-    blank_file_name = os.path.basename(blank_diretcory)
-    blank_file = wave.open(os.path.join(blank_diretcory), "r")
+    blank_file_name = os.path.basename(blank_directory)
+    blank_file = wave.open(os.path.join(blank_directory), "r")
 
     # Read the blank  file properties
     blank_num_channels = blank_file.getnchannels()
