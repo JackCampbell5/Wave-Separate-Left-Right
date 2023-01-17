@@ -34,11 +34,19 @@ def checkbox_output_fun(num, var):
     if var:
         var = True
         buttons[1]["state"] = "disabled"
-        if outputVar[0] != 1:
+        if outputVar[0] != 0:
             buttons[2]["state"] = "active"
     else:
         var = False
-        # TODO Add to re-enable button when it is disabled
+        if buttons[1]["state"] == "disabled":
+            buttons[1]["state"] = "active"
+        if outputVar[0] == 0:
+            # If the user unclicks checkbox and has not put in a target directory
+            buttons[1]["state"] = "disabled"
+            buttons[2]["state"] = "disabled"
+        elif outputVar[1] == 0:
+            # If the user unclicks checkbox and has not put in a output directory
+            buttons[2]["state"] = "disabled"
     outputVar[num] = var
 
 
